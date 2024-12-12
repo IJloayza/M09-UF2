@@ -11,6 +11,7 @@ public class Fil implements Runnable {
             }else{
                 System.out.println(nom + " " + i);            
             }
+            Thread.yield();
         }
     }
 
