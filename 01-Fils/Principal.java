@@ -3,7 +3,11 @@ public class Principal{
         Fil juan = new Fil("Juan");
         Fil pepe = new Fil("Pepe");
         System.out.println("Termina thread main");
-        new Thread(juan).start();
-        new Thread(pepe).start();
+        Thread j = new Thread(juan);
+        Thread p = new Thread(pepe);
+        p.setPriority(9);
+        j.setPriority(1);
+        p.start();
+        j.start();
     }
 }
