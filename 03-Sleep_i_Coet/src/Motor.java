@@ -2,9 +2,9 @@ import java.util.Random;
 
 public class Motor extends Thread{
     private int ptObjective = 0;
-    private int ptActual;
+    private int ptActual = 0;
     private Random rnd = new Random();
-
+    private volatile boolean seguir = true;
     public Motor(String name){
         super(name);
     }
@@ -14,43 +14,52 @@ public class Motor extends Thread{
         this.ptObjective = ptObjective;
     }
 
+    public void off(){
+        seguir = false;
+    }
+
     @Override
     public void run() {
-        if(ptActual < ptObjective){
-            incrementPt();
-        }else{
-            decrementPt();
+        while (seguir) {
+            if(ptActual != ptObjective){
+                if(ptActual < ptObjective){
+                    incrementPt();
+                }else if(ptActual > ptObjective){
+                    decrementPt();
+                }else{
+                    break;
+                }
+            }
         }
-         
     }
 
     private void incrementPt(){
-        int changePotenceTime = 1000 + rnd.nextInt(1001);
-        for (int i = 0; i < ptObjective; i++) {
+        for (int i = ptActual; i < ptObjective; i++) {
             ptActual++;
             if(ptActual == ptObjective){
                 System.out.printf("%-10s: FerRes. Objectiu: %d Actual: %d%n", this.getName(), ptObjective, ptActual);
             }else{
                 System.out.printf("%-10s: Incre. Objectiu: %d Actual: %d%n", this.getName(), ptObjective, ptActual);
             }
+            delay();
         }  
-        try {
-            sleep(changePotenceTime);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } 
+        
     }
 
     private void decrementPt(){
-        int changePotenceTime = 1000 + rnd.nextInt(1001);
-        for (int i = ptObjective; i >= 0; i--) {
-            ptActual--;
-            if(ptActual == 0){
+        for (int i = ptActual; i >= ptObjective; i--) {
+            if(ptActual == ptObjective){
                 System.out.printf("%-10s: FerRes. Objectiu: %d Actual: %d%n", this.getName(), ptObjective, ptActual);
             }else{
                 System.out.printf("%-10s: Decre. Objectiu: %d Actual: %d%n", this.getName(), ptObjective, ptActual);
             }
-        }  
+            ptActual--;
+            delay();
+        } 
+    }
+
+    private void delay(){
+        int changePotenceTime = 1000 + rnd.nextInt(1001);
         try {
             sleep(changePotenceTime);
         } catch (InterruptedException e) {
