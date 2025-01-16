@@ -4,7 +4,7 @@ public class Motor extends Thread{
     private int ptObjective = 0;
     private int ptActual = 0;
     private Random rnd = new Random();
-    private volatile boolean seguir = true;
+    private boolean seguir = true;
     public Motor(String name){
         super(name);
     }
@@ -22,40 +22,22 @@ public class Motor extends Thread{
     public void run() {
         while (seguir) {
             if(ptActual != ptObjective){
-                if(ptActual < ptObjective){
-                    incrementPt();
-                }else if(ptActual > ptObjective){
-                    decrementPt();
-                }else{
-                    break;
-                }
+                changePotence();
             }
         }
     }
 
-    private void incrementPt(){
-        for (int i = ptActual; i < ptObjective; i++) {
-            ptActual++;
-            if(ptActual == ptObjective){
-                System.out.printf("%-10s: FerRes. Objectiu: %d Actual: %d%n", this.getName(), ptObjective, ptActual);
-            }else{
-                System.out.printf("%-10s: Incre. Objectiu: %d Actual: %d%n", this.getName(), ptObjective, ptActual);
-            }
+    private void changePotence(){
+        while(ptActual != ptObjective){
+            boolean moreOrLess = ptActual > ptObjective;
+            ptActual += moreOrLess? -1: 1;
+            String mode = ptActual == ptObjective? "FerRes": moreOrLess? "Decre": "Incre";
+            String printMessage = String.format("%-10s: %s. Objectiu: %d Actual: %d", this.getName(),
+            mode,
+            ptObjective, ptActual);
+            System.out.println(printMessage);
             delay();
-        }  
-        
-    }
-
-    private void decrementPt(){
-        for (int i = ptActual; i >= ptObjective; i--) {
-            if(ptActual == ptObjective){
-                System.out.printf("%-10s: FerRes. Objectiu: %d Actual: %d%n", this.getName(), ptObjective, ptActual);
-            }else{
-                System.out.printf("%-10s: Decre. Objectiu: %d Actual: %d%n", this.getName(), ptObjective, ptActual);
-            }
-            ptActual--;
-            delay();
-        } 
+        }
     }
 
     private void delay(){
