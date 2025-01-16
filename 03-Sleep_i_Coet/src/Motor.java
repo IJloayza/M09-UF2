@@ -4,7 +4,7 @@ public class Motor extends Thread{
     private int ptObjective = 0;
     private int ptActual = 0;
     private Random rnd = new Random();
-    private boolean seguir = true;
+    private volatile boolean seguir = true;
     public Motor(String name){
         super(name);
     }
