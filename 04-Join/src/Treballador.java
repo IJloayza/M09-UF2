@@ -1,12 +1,13 @@
 import java.util.Random;
 
 public class Treballador extends Thread{
+    //Attributes for Teballador 
     float anualBrut;
     int ageStart;
     int ageEnd;
     int ageCurrent = 0;
     float cobrat = 0;
-    float pagaMensual = anualBrut / 12;
+    float pagaMensual;
     Random rnd = new Random();
 
     public Treballador(String name, float anualBrut, int ageStart, int ageEnd){
@@ -15,18 +16,23 @@ public class Treballador extends Thread{
         this.ageStart = ageStart;
         this.ageCurrent = ageStart;
         this.ageEnd = ageEnd;
+        this.pagaMensual = anualBrut / 12;
     }
     public void cobra(){
         cobrat += pagaMensual;
     }
     public void pagaImpostos(){
+        //24% of taxes in the payment
         cobrat -= (pagaMensual * 0.24); 
     }
     @Override
     public void run() {
+        //While the age is not enough for retirement the Treballador gets paid 12 times a year and pay taxes for each payment till retirement
         while (ageCurrent != ageEnd) {
-            cobra();
-            pagaImpostos();
+            for (int i = 0; i < 12; i++) {
+                cobra();
+                pagaImpostos();
+            }
             ageCurrent++;
         }
     }
