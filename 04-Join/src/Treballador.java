@@ -31,7 +31,9 @@ public class Treballador extends Thread{
         while (ageCurrent != ageEnd) {
             for (int i = 0; i < 12; i++) {
                 cobra();
+                delay();
                 pagaImpostos();
+                delay();
             }
             ageCurrent++;
         }
@@ -41,6 +43,14 @@ public class Treballador extends Thread{
     }
     public int getEdat() {
         return ageCurrent;
+    }
+    private void delay(){
+        int delay = rnd.nextInt(10);
+        try {
+            sleep(delay);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } 
     }
     @Override
     public String toString() {

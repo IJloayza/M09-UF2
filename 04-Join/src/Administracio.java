@@ -10,9 +10,13 @@ public class Administracio {
         }
         // Join all the Threads and wait to show the result
         for (int i = 0; i < poblacio_activa.length; i++) {
-            poblacio_activa[i].join();
             poblacio_activa[i].start();
         }
+
+        for (int i = 0; i < poblacio_activa.length; i++) {
+            poblacio_activa[i].join();
+        }
+
         //Print the las Treaballador information
         for (int i = 0; i < poblacio_activa.length; i++) {
             System.out.println(poblacio_activa[i].toString());
