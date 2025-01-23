@@ -1,7 +1,7 @@
 package src;
 public class Compte {
     private static Compte compte = null;
-    private float saldo;
+    private  float saldo;
 
     private Compte(){
         saldo = 0;
@@ -17,11 +17,11 @@ public class Compte {
         return compte;
     }
 
-    public float getSaldo() {
+    synchronized public float getSaldo() {
         return saldo;
     }
 
-    public void setSaldo(float saldo) {
-        this.saldo += saldo;
+    synchronized public void setSaldo(float saldo) {
+        this.saldo = saldo;
     }
 }

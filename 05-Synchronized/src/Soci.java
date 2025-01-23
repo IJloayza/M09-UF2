@@ -21,7 +21,9 @@ public class Soci extends Thread{
     }
 
     private void gestionaPagament(int mesNum){
-        compte.setSaldo(mesNum % 2 == 0? aportacio: -aportacio);
+        float saldo = compte.getSaldo();
+        saldo += mesNum % 2 == 0? aportacio: -aportacio;
+        compte.setSaldo(saldo);
     }
 
     private void delay(){
