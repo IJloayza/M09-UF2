@@ -17,11 +17,11 @@ public class Compte {
         return compte;
     }
 
-    synchronized public float getSaldo() {
+    public float getSaldo() {
         return saldo;
     }
 
-    synchronized public void setSaldo(float saldo) {
+    public void setSaldo(float saldo) {
         this.saldo = saldo;
     }
 }

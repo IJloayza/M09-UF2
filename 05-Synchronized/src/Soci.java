@@ -14,7 +14,10 @@ public class Soci extends Thread{
     public void run() {
         for (int i = 0; i < maxAnys; i++) {
             for (int j = 0; j < 12; j++) {
-                gestionaPagament(j);
+                synchronized(compte) {
+                    gestionaPagament(j);
+                }
+                
                 delay();
             }
         }
