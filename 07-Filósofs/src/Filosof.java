@@ -34,6 +34,7 @@ public class Filosof extends Thread {
                 }
             }else {
                 gana++;
+                System.out.printf("Filósof: %s no pot agafar la forquilla esquerra(ocupada)%n", getName());
                 System.out.printf("Filósof: %s gana = %d%n", getName(), gana);
                 delay(500, 1000);
             }
