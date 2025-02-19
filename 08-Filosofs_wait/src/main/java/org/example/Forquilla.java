@@ -1,9 +1,11 @@
+package org.example;
+
 public class Forquilla {
     private int num;
-    private boolean used = false;
-    public Forquilla(int num, boolean used){
+    private final int LLIURE = -1;
+    private int propietari = LLIURE;
+    public Forquilla(int num){
         this.num = num;
-        this.used = used;
     }
     public int getNum() {
         return num;
@@ -11,10 +13,19 @@ public class Forquilla {
     public void setNum(int num) {
         this.num = num;
     }
-    public boolean isUsed() {
-        return used;
+    synchronized public boolean isUsed() {
+        return propietari != LLIURE;
     }
-    public void setUsed(boolean used) {
-        this.used = used;
+
+    synchronized public void setUsed(int propietari) throws InterruptedException {
+        while (this.propietari != LLIURE) {
+            wait(); // Espera si la forquilla está en uso
+        }
+        this.propietari = propietari;
+    }
+
+    synchronized public void setLliure() {
+        this.propietari = LLIURE;
+        notifyAll(); // Notifica a otros hilos de que la forquilla está libre
     }
 }

@@ -1,3 +1,5 @@
+package org.example;
+
 public class Taula {
     private static Filosof[] comensals;
     private static Forquilla[] forquilles;
@@ -12,10 +14,10 @@ public class Taula {
         comensals = new Filosof[numero];
         forquilles = new Forquilla[numero];
         for (int i = 0; i < forquilles.length; i++) {
-            forquilles[i] = new Forquilla(i, false);
+            forquilles[i] = new Forquilla(i);
         }
         for(int i = 0; i < comensals.length; i++){
-            comensals[i] = new Filosof(String.format("fil%d", i), forquilles[i], forquilles[(i + 1) % forquilles.length]);
+            comensals[i] = new Filosof(String.format("fil%d", i), i, forquilles[i], forquilles[(i + 1) % forquilles.length]);
         }
     }
 
