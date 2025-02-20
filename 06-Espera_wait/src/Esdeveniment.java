@@ -15,7 +15,6 @@ public class Esdeveniment{
         return true;
     }
     public boolean cancelarReserva(Assistent assistent){
-
         if (!assistents.remove(assistent)) {
             System.out.printf("%s no ha pogut cancel·lar una reserva inexistent. Places disponibles: %d%n", assistent.getName(), places);
             return false;
