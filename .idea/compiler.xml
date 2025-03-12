@@ -7,8 +7,10 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="08-Filosofs_wait" />
-        <module name="09-Filosof-lock" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="09-Filosof-lock" target="21" />
+    </bytecodeTargetLevel>
   </component>
 </project>
